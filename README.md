@@ -1,7 +1,7 @@
 
-# 🛠️ Guide d'Optimisation Minecraft (Fabric & Paper)
+# 🛠️ Guide d'Optimisation Minecraft (Fabric, Forge & Paper)
 
-Ce guide compile les meilleures pratiques et recommandations techniques issues des forums MineStrator pour améliorer les performances (FPS, TPS, mémoire, réseau) d'un serveur Minecraft moddé ou Vanilla.
+Ce guide compile les meilleures pratiques issues de MineStrator pour optimiser les performances de serveurs Minecraft : Fabric, Forge et Paper/Spigot.
 
 ---
 
@@ -9,30 +9,39 @@ Ce guide compile les meilleures pratiques et recommandations techniques issues d
 
 | Mod                           | Impact         | Description détaillée |
 |------------------------------|----------------|-------------------------|
-| **Sodium**                   | 🟢 VERT        | Moteur de rendu alternatif ultra-performant utilisant des techniques avancées de culling et rendu GPU. Augmente fortement les FPS. |
-| **Sodium Extra**             | 🟠 ORANGE      | Ajoute des options graphiques et des contrôles supplémentaires à Sodium pour affiner les performances selon les besoins. |
-| **Indium**                   | 🟠 ORANGE      | API de compatibilité pour rendre Sodium compatible avec les mods visuels utilisant Indigo. |
-| **ImmediatelyFast**          | 🟠 ORANGE      | Réduit les appels OpenGL redondants, notamment lors du rendu d’interfaces et d’entités, allégeant le GPU. |
-| **Enhanced Block Entities**  | 🟠 ORANGE      | Transforme les block entities complexes (coffres, pancartes) en modèles statiques plus légers pour le rendu. |
-| **More Culling**             | 🟠 ORANGE      | Optimise le rendu en éliminant les faces de blocs invisibles. Réduction du travail GPU. |
-| **Lithium** (client/serveur) | 🟢 VERT        | Optimise les calculs serveur : IA, redstone, collisions. Réduction du temps de tick jusqu'à 50 %. |
-| **Starlight**                | 🟢 VERT        | Réécriture complète du moteur de lumière Vanilla. Génération de lumière quasi-instantanée. |
-| **FerriteCore**              | 🟢 VERT        | Optimise l’utilisation mémoire en réduisant les objets dupliqués comme les blockstates ou modèles. |
-| **Smooth Boot / ThreadTweak**| 🟠 ORANGE      | Améliore le démarrage du jeu en répartissant mieux la charge sur plusieurs threads. |
-| **ModernFix**                | 🟠 ORANGE      | Corrige des inefficacités dans le code de chargement des ressources, accélère l’ouverture du jeu. |
-| **DashLoader**               | 🟠 ORANGE      | Met en cache les ressources du jeu (textures, sons, modèles) pour un chargement plus rapide au démarrage. |
-| **Krypton** (réseau)         | 🟢 VERT        | Optimise le netcode Minecraft. Réduction de la latence réseau, meilleur en multi. |
+| **Sodium**                   | 🟢 VERT        | Moteur de rendu ultra-performant (GPU-driven rendering). Augmentation massive des FPS. |
+| **Sodium Extra**             | 🟠 ORANGE      | Réglages graphiques avancés pour Sodium. |
+| **Indium**                   | 🟠 ORANGE      | Nécessaire pour Indigo avec Sodium <0.6. |
+| **ImmediatelyFast**          | 🟠 ORANGE      | Réduction du coût CPU/GPU sur le rendu d'entités. |
+| **Enhanced Block Entities**  | 🟠 ORANGE      | Modèles pré-baked pour les block entities (coffres, pancartes). |
+| **More Culling**             | 🟠 ORANGE      | Masquage des faces non visibles, améliore les FPS. |
+| **Lithium**                  | 🟢 VERT        | Optimise le tick serveur : IA, collisions, redstone. |
+| **Starlight**                | 🟢 VERT        | Refonte du système de lumière : ultra rapide. |
+| **FerriteCore**              | 🟢 VERT        | Réduction mémoire (blockstates, modèles). |
+| **Smooth Boot**              | 🟠 ORANGE      | Répartit mieux les threads au démarrage. |
+| **ModernFix**                | 🟠 ORANGE      | Optimisations mémoire et chargement. |
+| **DashLoader**               | 🟠 ORANGE      | Cache les ressources au lancement. |
+| **Krypton** (réseau)         | 🟢 VERT        | Amélioration du réseau client/serveur. |
 
 ---
 
-## 🟡 Partie 2 – Optimisation Serveur Paper/Spigot
+## 🟣 Partie 2 – Mods Forge : Impact et détails
 
-### 2.1. Prégénération de la map
+| Mod                  | Impact     | Description |
+|----------------------|------------|-------------|
+| **Rubidium**         | 🟢 VERT    | Port Forge de Sodium. |
+| **Oculus**           | 🟠 ORANGE  | Ajoute les shaders à Rubidium. |
+| **Entity Culling**   | 🟢 VERT    | Cache les entités non visibles. |
+| **Pluto**            | 🟢 VERT    | Optimise le netcode Forge. |
+| **Clumps**           | 🟠 ORANGE  | Fusionne les orbes d'XP. |
+| **In Control!**      | 🟠 ORANGE  | Contrôle avancé des spawns. |
+| **Magnum Torch**     | 🟠 ORANGE  | Empêche le spawn dans une large zone. |
 
-- **Chunky** (plugin ou mod) – 🟢 VERT  
-  Générez les chunks avant l’arrivée des joueurs pour éviter les ralentissements en exploration.
+---
 
-### 2.2. Réglages `.yml`
+## 🟡 Partie 3 – Optimisation Serveur Paper/Spigot
+
+### 3.1. Réglages `.yml`
 
 **bukkit.yml**
 ```yaml
@@ -63,66 +72,72 @@ paper:
       use-faster-eigencraft-redstone: true
 ```
 
-### 2.3. Plugins utiles
+### 3.2. Plugins utiles
 
-- **Insight** – 🟠 ORANGE  
-  Analyse les entités/tile-entities par chunk. Détection des zones surchargées.
-
----
-
-## 🧠 Partie 3 – Conseils Généraux
-
-- Utiliser **Paper** plutôt que Vanilla ou Spigot – 🟢 VERT  
-- Préférer **Java OpenJ9** sur machine à faible RAM – 🟠 ORANGE  
-- Toujours **mettre à jour les plugins/mods/datapacks** – 🟠 ORANGE  
-- **Réduire view-distance** à 6–10 selon la puissance – 🟠 ORANGE  
-- **Prégénérer les mondes** – 🟢 VERT  
-- **Utiliser Spark** pour profiler le serveur – 🟢 VERT
+- **Insight** – 🟠 ORANGE : analyse les entités/tile-entities par chunk.
 
 ---
 
-# 🧪 TUTO Spark – Profilage de performances
+## 🌍 Partie 4 – Tuto Prégénération avec Chunky
 
-### 1. Installation
+### 1. Installer Chunky
 
-Placez `spark.jar` dans `/plugins` (Spigot/Paper) ou `/mods` (Fabric/Forge) et redémarrez.
+- Téléchargez le plugin Chunky compatible avec votre version serveur.
+- Placez-le dans le dossier `plugins/` et redémarrez le serveur.
 
-### 2. Vérification rapide
+### 2. Définir la zone à générer
+
+```bash
+/chunky center
+/chunky radius 5000
+/chunky shape square
+```
+
+### 3. Démarrer la génération
+
+```bash
+/chunky start
+```
+
+### 4. Astuces
+
+- Utilisez `/chunky pause` pour stopper temporairement.
+- Vérifiez la progression avec `/chunky status`.
+
+---
+
+## 🧠 Partie 5 – Conseils Généraux
+
+- Utilisez **Paper** : économie mémoire et meilleures performances.
+- **Prégénérez** la map avec Chunky ou Chunk Pregenerator.
+- Tenez **à jour** tous les mods/plugins.
+- **Baissez la view-distance** (6–10).
+- Préférez **Java OpenJ9** sur VPS à faibles ressources.
+- Analysez les lags avec **Spark**.
+
+---
+
+# 🧪 TUTO Spark – Analyse de performance
+
+### Installation
+
+- Ajoutez `spark.jar` à vos `plugins/` ou `mods/`.
+
+### Commandes utiles
 
 ```bash
 /spark tps
-```
-
-Affiche les TPS, MSPT, CPU. Permet de vérifier la stabilité du serveur.
-
-### 3. Profilage complet
-
-```bash
 /spark profiler --timeout 30
-```
-
-Crée un profil sur 30 secondes. Idéal pour les lags persistants.
-
-### 4. Détection des ticks lents
-
-```bash
 /spark tickmonitor
 /spark profiler --only-ticks-over 100
+/spark heap
 ```
 
-Cible uniquement les ticks > 100 ms.
+### Lecture des résultats
 
-### 5. Analyse graphique (via spark viewer)
-
-- **Timeline** : pic de TPS/MSPT
-- **Arbre d'exécution** : fonctions responsables du lag
-- **World/Entity/Chunk** : surcharge locale d’entités
-
-### 6. Actions recommandées
-
-- Identifier le code ou plugin fautif  
-- Localiser la zone problématique  
-- Adapter la configuration, supprimer ou corriger  
+- **Timeline** : mesure de stabilité.
+- **Flamegraph** : identifie les sources de lag.
+- **World/Chunk** : entités ou redstone excessives.
 
 ---
 
@@ -131,9 +146,9 @@ Cible uniquement les ticks > 100 ms.
 | Couleur | Signification |
 |--------|---------------|
 | 🟢 VERT | Impact très positif, recommandé |
-| 🟠 ORANGE | Impact modéré ou situationnel |
-| 🔴 ROUGE | Non utilisé ici (peut avoir effets secondaires) |
+| 🟠 ORANGE | Impact modéré, selon contexte |
+| 🔴 ROUGE | À éviter ou instable |
 
 ---
 
-Avec ce guide, vous pouvez optimiser efficacement un serveur Minecraft moddé ou vanilla en adaptant votre environnement à vos ressources.
+Avec ce guide, vous disposez d’une base complète pour booster les performances de vos serveurs Minecraft (moddés ou non) tout en maintenant une excellente jouabilité.

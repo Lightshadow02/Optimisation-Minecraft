@@ -6,20 +6,13 @@ Bienvenue ! Ce dépôt regroupe des guides et listes de mods pour **booster les
 
 ### Navigation
 - ▶️ **[Optimisations côté client (FPS & rendu)](client/README.md)**
-- 🧠 **[Optimisations moteur/serveur & réseau](serveur/README.md)**
-- 💾 **[Mémoire & démarrage plus rapide](memoire-chargement/README.md)**
+- 🧠 **[Serveur, réseau, mémoire & démarrage (Fabric, Forge, Paper)](serveur-memoire/README.md)**
 
 
 ### Légende d’impact (tri par efficacité)
 - 🟩 **Fort** : gain net et visible pour la majorité des configs
 - 🟧 **Moyen** : utile selon cas/pack/config
 - 🟥 **Faible** : bénéfice limité / versions anciennes / situationnel
-
-
-> **Compatibilité rapide**
-> - **Fabric** : Sodium, Lithium, ScalableLux/Starlight, Krypton, C2ME, FerriteCore, etc.
-> - **Forge/NeoForge** : Rubidium (Sodium), Oculus (shaders), Canary/Radium (Lithium), Starlight, Pluto (réseau), FerriteCore, etc.
-> - **Paper/Spigot** : voir `serveur/README.md` (bukkit.yml / spigot.yml / paper.yml / server.properties)
 
 
 ### RAM & démarrage : ordre de grandeur par version (Vanilla serveur 8 Go, premier boot)
@@ -32,12 +25,4 @@ Bienvenue ! Ce dépôt regroupe des guides et listes de mods pour **booster les
 | **Done (s)** | 3.9 | 5.3 | 4.7 | 5.4 | 4.7 | 4.3 | 12.2 | 16.9 | 15.8 | 15.1 | 21.3 | 35.9 | 42.3 | 32.1 |
 
 
-> Ces chiffres illustrent la **hausse des besoins** au fil des versions (plus d’entités, de systèmes, Java évolue, etc.).
-
-
-### Conseils express
-- **Prégénérez la map** avant tout (Chunky/Chunk Pregenerator) ➜ *gros impact serveur*
-- **Réduisez `view-distance` & `simulation-distance`** si TPS bas
-- **Fabric** : combo recommandé = *Sodium + Lithium + ScalableLux (1.21+)/Starlight (≤1.20) + FerriteCore + Krypton + C2ME*
-- **Forge** : *Rubidium + Starlight + Canary/Radium + FerriteCore*; shaders : ajouter *Oculus*
-- **Paper** : appliquez les réglages proposés dans `serveur/README.md`
+> Ces chiffres illustrent la **hausse des besoins** au fil des versions.
